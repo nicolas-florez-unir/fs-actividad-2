@@ -1,0 +1,12 @@
+{
+  "name": "Spring Boot Devcontainer",
+  "dockerComposeFile": "./docker-compose.yml",
+  "service": "java",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "extensions": [
+    "vscjava.vscode-spring-boot-tools",
+    "vscjava.vscode-java-pack"
+  ],
+  "postCreateCommand": "sudo chmod -R 777 /workspace && mvn clean install"
+}

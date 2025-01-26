@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  eureka:
+    container_name: eureka
+    build:
+      context: ./eureka
+      dockerfile: Dockerfile
+    ports:
+      - "8761:8761"
+
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka
+
+  ms-buscador:
+    container_name: ms-buscador
+    build:
+      context: ./ms-buscador
+      dockerfile: Dockerfile
+    environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://db-buscador:3306/buscador
+        SPRING_DATASOURCE_USERNAME: root
+        SPRING_DATASOURCE_PASSWORD: rootpassword
+    ports:
+      - "8081:8081"
+    depends_on:
+      - eureka
+      - db-buscador
+
+  db-buscador:
+    container_name: db-buscador
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: buscador
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - db-buscador-data:/var/lib/mysql
+
+  ms-operador:
+    container_name: ms-operador
+    build:
+      context: ./ms-operador
+      dockerfile: Dockerfile
+    environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://db-operador:3306/operador
+        SPRING_DATASOURCE_USERNAME: root
+        SPRING_DATASOURCE_PASSWORD: rootpassword
+    ports:
+      - "8082:8082"
+    depends_on:
+      - eureka
+      - db-operador
+
+  db-operador:
+    container_name: db-operador
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: operador
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3308:3306"
+    volumes:
+      - db-operador-data:/var/lib/mysql
+
+volumes:
+  db-buscador-data:
+  db-operador-data:

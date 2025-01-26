@@ -1,0 +1,10 @@
+services:
+  java:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace
+    command: sleep infinity
+    ports:
+      - 8080:8080
