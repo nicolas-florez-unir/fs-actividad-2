@@ -1,0 +1,7 @@
+package com.grupo1.ms_buscador.data.utils;
+
+public enum SearchOperation {
+    EQUALITY, NEGATION, GREATER_THAN, LESS_THAN, LIKE, STARTS_WITH, ENDS_WITH, CONTAINS, MATCH,
+    MATCH_END,GREATER_THAN_EQUAL,LESS_THAN_EQUAL,NOT_EQUAL,EQUAL,;
+
+}

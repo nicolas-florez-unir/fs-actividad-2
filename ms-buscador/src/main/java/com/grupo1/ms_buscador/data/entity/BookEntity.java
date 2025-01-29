@@ -1,7 +1,8 @@
-package com.grupo1.ms_buscador.data.Entity;
+package com.grupo1.ms_buscador.data.entity;
 
-import ms_buscador_books.books.controller.model.BookDto;
-import ms_buscador_books.books.data.utils.Consts;
+
+import com.grupo1.ms_buscador.data.utils.*;
+import com.grupo1.ms_buscador.controllers.model.BookDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -14,6 +15,7 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor// Poque cuando no se añade se genera un error en el constructor ?
 @Table(name = "BookEntity")
 @Entity
 public class BookEntity {
