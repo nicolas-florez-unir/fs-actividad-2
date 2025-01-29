@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RandomNumberController {
 
-    //localhost:8080/ms-operador/random-number
+    //localhost:/ms-operador/random-number
     @GetMapping("/random-number")
     public int getRandomNumber() {
         return (int) (Math.random() * 100);
