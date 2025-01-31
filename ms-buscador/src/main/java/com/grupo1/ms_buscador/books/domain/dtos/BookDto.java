@@ -18,6 +18,7 @@ public class BookDto {
     private String description;
     private Boolean visible;
     private String category;
+    private String isbnCode;
     private String publicationDate;
     private int rating;
     private int unitsAvaible;
