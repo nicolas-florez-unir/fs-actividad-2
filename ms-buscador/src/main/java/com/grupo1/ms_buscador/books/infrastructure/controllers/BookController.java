@@ -19,7 +19,9 @@ import com.grupo1.ms_buscador.books.application.CreateBookUseCase;
 import com.grupo1.ms_buscador.books.application.DeleteBookByIdUseCase;
 import com.grupo1.ms_buscador.books.application.GetAllBooksUseCase;
 import com.grupo1.ms_buscador.books.application.GetBookByIdUseCase;
+import com.grupo1.ms_buscador.books.application.SearchBookUseCase;
 import com.grupo1.ms_buscador.books.domain.dtos.BookDto;
+import com.grupo1.ms_buscador.books.domain.dtos.SearchBookFiltersDto;
 import com.grupo1.ms_buscador.books.domain.exceptions.BookNotFoundException;
 import com.grupo1.ms_buscador.books.infrastructure.requests.CreateBookRequest;
 import com.grupo1.ms_buscador.books.infrastructure.requests.SearchBookRequest;
@@ -47,9 +49,23 @@ public class BookController {
     @Autowired
     DeleteBookByIdUseCase deleteBookByIdUseCase;
 
-    @GetMapping("/all")
-    public List<BookDto> getAllBooks() {
-        return this.getAllBooksUseCase.execute();
+    @Autowired
+    SearchBookUseCase searchBookUseCase;
+
+    @GetMapping()
+    public ResponseEntity<List<BookDto>> searchBook(@ModelAttribute SearchBookRequest request) {
+        var filtersDto = SearchBookFiltersDto
+                .builder()
+                .title(request.getTitle())
+                .author(request.getAuthor())
+                .description(request.getDescription())
+                .publicationDate(request.getPublicationDate())
+                .category(request.getCategory())
+                .visible(request.getVisible())
+                .isbnCode(request.getIsbnCode())
+                .build();
+
+        return ResponseEntity.ok(this.searchBookUseCase.execute(filtersDto));
     }
 
     @GetMapping("/{id}")
@@ -68,17 +84,20 @@ public class BookController {
         }
     }
 
-    @GetMapping("/search")
-    public List<BookDto> searchBook(@ModelAttribute SearchBookRequest request) {
-        System.out.println(request.toString());
-        return this.getAllBooksUseCase.execute();
-    }
-
-    @PostMapping("/create")
+    @PostMapping()
     public BookDto createBook(@Valid @RequestBody CreateBookRequest request) {
-        var dto = new BookDto(null, request.getTitle(), request.getAuthor(),
-                request.getDescription(), request.getVisible(), request.getCategory(), request.getPublicationDate(),
-                request.getRating(), request.getUnitsAvaible(), request.getPrice());
+        var dto = new BookDto(
+                null,
+                request.getTitle(),
+                request.getAuthor(),
+                request.getDescription(),
+                request.getVisible(),
+                request.getCategory(),
+                request.getIsbnCode(),
+                request.getPublicationDate(),
+                request.getRating(),
+                request.getUnitsAvaible(),
+                request.getPrice());
 
         return this.createBookUseCase.execute(dto);
     }

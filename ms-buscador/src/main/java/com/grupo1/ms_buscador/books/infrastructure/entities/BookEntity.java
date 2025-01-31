@@ -40,6 +40,9 @@ public class BookEntity {
     @Column(name = "category")
     private String category;
 
+    @Column(name = "isbn_code")
+    private String isbnCode;
+
     @Column(name = "publication_date")
     private String publicationDate;
 
