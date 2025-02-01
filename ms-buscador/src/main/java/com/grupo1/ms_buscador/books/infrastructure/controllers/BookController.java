@@ -113,4 +113,8 @@ public class BookController {
         }
     }
 
+    @GetMapping("/test")
+    public String test() {
+        return "Hello from books";
+    }
 }
