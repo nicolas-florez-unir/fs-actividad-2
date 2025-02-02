@@ -9,5 +9,6 @@ public class MsOperadorApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MsOperadorApplication.class, args);
 	}
-
 }
+
+
