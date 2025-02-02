@@ -1,4 +1,4 @@
-package com.grupo1.ms_operador.core.infrastructure.exceptions.handlers;
+package com.grupo1.ms_operador.core.infrastructure.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
