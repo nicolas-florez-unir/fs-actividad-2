@@ -11,4 +11,5 @@ public abstract class BookRepository {
     public abstract void deleteById(Long id);
     public abstract List<BookDto> findAll();
     public abstract List<BookDto> search(SearchBookFiltersDto filters);
+    public abstract BookDto update(BookDto bookDto);
 }

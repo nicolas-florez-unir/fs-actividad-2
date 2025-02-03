@@ -17,5 +17,4 @@ public class SearchBookRequest {
     private String category;
     private String isbnCode;
     private Boolean visible;
-    private String sbnCode;
 }
