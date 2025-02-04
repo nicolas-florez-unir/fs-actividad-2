@@ -1,17 +1,16 @@
 package com.grupo1.ms_operador.payments.infrastructure.entities;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Entity
-@Table(name = "purchases")
-public class PurchaseEntity {
-
+@Table(name = "orders")
+public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,17 +18,14 @@ public class PurchaseEntity {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "book_id", nullable = false)
-    private Long bookId;
-
-    @Column(name = "quantity", nullable = false)
-    private int quantity;
-
     @Column(name = "total_price", nullable = false)
     private double totalPrice;
 
-    @Column(name = "purchase_date", nullable = false)
-    private String purchaseDate;
+    @Column(name = "created_at", nullable = false)
+    private String createdAt;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderDetailEntity> orderDetails;
 }
 
 

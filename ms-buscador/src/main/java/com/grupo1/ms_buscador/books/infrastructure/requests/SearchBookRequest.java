@@ -1,5 +1,7 @@
 package com.grupo1.ms_buscador.books.infrastructure.requests;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class SearchBookRequest {
+    private String ids;
     private String title;
     private String author;
     private String description;

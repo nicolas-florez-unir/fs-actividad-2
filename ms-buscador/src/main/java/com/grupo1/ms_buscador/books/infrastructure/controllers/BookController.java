@@ -54,8 +54,24 @@ public class BookController {
 
     @GetMapping()
     public ResponseEntity<List<BookDto>> searchBook(@ModelAttribute SearchBookRequest request) {
+        List<Long> idsAsList = null;
+
+        try {
+            var idsSplitted = request.getIds().split(",");
+
+            if (idsSplitted.length > 0) {
+                idsAsList = List.of(idsSplitted)
+                        .stream()
+                        .map(Long::parseLong)
+                        .toList();
+            }
+        } catch (NumberFormatException e) {
+            this.logger.error("No se puede convertir a Long la lista de ids" + e.getMessage());
+        }
+
         var filtersDto = SearchBookFiltersDto
                 .builder()
+                .ids(idsAsList)
                 .title(request.getTitle())
                 .author(request.getAuthor())
                 .description(request.getDescription())

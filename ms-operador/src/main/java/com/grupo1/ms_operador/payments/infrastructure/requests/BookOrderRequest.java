@@ -5,11 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
-public class CreatePurchaseRequest {
-
-    @NotNull(message = "El ID del usuario es obligatorio.")
-    private Long userId;
-
+public class BookOrderRequest {
     @NotNull(message = "El ID del libro es obligatorio.")
     private Long bookId;
 

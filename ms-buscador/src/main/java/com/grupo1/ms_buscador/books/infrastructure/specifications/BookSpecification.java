@@ -15,6 +15,10 @@ public class BookSpecification {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 
+            if(filters.getIds() != null && !filters.getIds().isEmpty()) {
+                predicates.add(root.get("id").in(filters.getIds()));
+            }
+
             if (filters.getTitle() != null && !filters.getTitle().isEmpty()) {
                 predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("title")),
                         "%" + filters.getTitle().toLowerCase() + "%"));
