@@ -5,9 +5,9 @@ import org.mapstruct.Mapper;
 import com.grupo1.ms_operador.payments.domain.dtos.OrderDetailDto;
 import com.grupo1.ms_operador.payments.infrastructure.entities.OrderDetailEntity;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface OrderDetailMapper {
-    OrderDetailDto toOrderDetailDto(OrderDetailEntity orderDetailEntity);
-    
-    OrderDetailEntity toOrderDetailEntity(OrderDetailDto orderDetailDto);
+    OrderDetailDto toOrderDetailDto(OrderDetailEntity orderDetails);
+
+    OrderDetailEntity toOrderDetailEntity(OrderDetailDto orderDetails);
 }

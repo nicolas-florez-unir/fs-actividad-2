@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.grupo1.ms_operador.buscador.domain.dtos.BookDto;
 import com.grupo1.ms_operador.buscador.infrastructure.clients.BuscadorClient;
 import com.grupo1.ms_operador.payments.application.useCases.CreateOrderUseCase;
 import lombok.AllArgsConstructor;
@@ -36,8 +37,19 @@ public class OrderController {
         try {
             var booksOrdersRequest = createOrderRequest.getBookOrderRequest();
 
+            var booksIds = createOrderRequest.getBookOrderRequest().stream()
+                    .map(bookOrder -> bookOrder.getBookId().toString())
+                    .toList();
+
+            var booksByIds = this.buscadorClient.searchBooksByIds(String.join(",", booksIds).toString());
+
             var bookOrdersDto = booksOrdersRequest.stream().map(bookOrder -> {
-                var book = buscadorClient.getBookById(bookOrder.getBookId());
+                BookDto book = null;
+
+                book = booksByIds.stream().filter(b -> b.getId() == bookOrder.getBookId()).findFirst().orElse(null);
+
+                if (book == null)
+                    throw new BookNotAvailableException("No se encontró el libro con id " + bookOrder.getBookId());
 
                 if (!book.getVisible())
                     throw new BookNotAvailableException("No está visible el libro " + book.getTitle());
@@ -45,13 +57,14 @@ public class OrderController {
                 if (book.getUnitsAvaible() < bookOrder.getQuantity())
                     throw new BookNotAvailableException("No hay stock suficiente para el libro " + book.getTitle());
 
-                return new OrderDetailDto(null, book.getId(), bookOrder.getQuantity());
+                return new OrderDetailDto(null, book.getId(), bookOrder.getQuantity(), book.getPrice());
             });
 
             var orderDto = new OrderDto(null, createOrderRequest.getUserId(), bookOrdersDto.toList());
 
-            this.createOrderUseCase.execute(orderDto);
-            return ResponseEntity.ok(null);
+            var result = this.createOrderUseCase.execute(orderDto);
+
+            return ResponseEntity.ok(result);
         } catch (BookNotAvailableException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {

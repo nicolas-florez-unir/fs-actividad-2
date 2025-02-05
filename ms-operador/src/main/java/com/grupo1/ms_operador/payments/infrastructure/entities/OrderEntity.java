@@ -6,8 +6,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@Data
 @Entity
 @Table(name = "orders")
 public class OrderEntity {

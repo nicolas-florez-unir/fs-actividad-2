@@ -1,9 +1,8 @@
 package com.grupo1.ms_operador.payments.infrastructure.requests;
 
 import java.util.List;
-
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import jakarta.validation.constraints.NotNull;
 
 @Getter
 public class CreateOrderRequest {

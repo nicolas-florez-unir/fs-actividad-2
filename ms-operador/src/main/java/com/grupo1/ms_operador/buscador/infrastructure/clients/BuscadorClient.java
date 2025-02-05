@@ -13,6 +13,6 @@ public interface BuscadorClient {
     @GetMapping("/buscador/books/{id}")
     public BookDto getBookById(@PathVariable("id") Long id);
 
-    @GetMapping("/buscador/books")
+    @GetMapping("/buscador/books?ids={ids}")
     public List<BookDto> searchBooksByIds(@PathVariable("ids") String ids);
 }

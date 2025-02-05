@@ -10,9 +10,15 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity()
 @Table(name = "order_details")
 public class OrderDetailEntity {
@@ -21,13 +27,15 @@ public class OrderDetailEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", nullable = false)
     private OrderEntity order;
 
-    @Column(name = "book_id")
+    @Column(name = "book_id", nullable = false)
     private Long bookId;
 
-    private Integer quantity;
+    @Column(name = "book_quantity", nullable = false)
+    private Integer bookQuantity;
 
-    private Double price;
+    @Column(name = "book_price", nullable = false)
+    private Double bookPrice;
 }

@@ -20,17 +20,17 @@ interface JpaOrderDetailRepository extends JpaRepository<OrderDetailEntity, Long
 public class MySqlOrderDetailRepository extends OrderDetailRepository {
     @Autowired
     private final JpaOrderDetailRepository jpaOrderDetailRepository;
-
+    
     private final OrderMapper orderMapper;
 
     @Override
     public OrderDetailDto save(OrderDto orderDto, OrderDetailDto orderDetailDto) {
         var orderEntity = this.orderMapper.toOrderEntity(orderDto);
 
-        var orderDetailEntity = new OrderDetailEntity(null, orderEntity, orderDetailDto.getBookId(), orderDetailDto.getQuantity(), null);
+        var orderDetailEntity = new OrderDetailEntity(null, orderEntity, orderDetailDto.getBookId(), orderDetailDto.getBookQuantity(), null);
 
         var newDetail = this.jpaOrderDetailRepository.save(orderDetailEntity);
 
-        return new OrderDetailDto(newDetail.getId(), newDetail.getBookId(), newDetail.getQuantity());
+        return new OrderDetailDto(newDetail.getId(), newDetail.getBookId(), newDetail.getBookQuantity(), newDetail.getBookPrice());
     }
 }
