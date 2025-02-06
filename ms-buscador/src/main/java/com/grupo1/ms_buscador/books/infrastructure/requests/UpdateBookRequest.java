@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 
 @Getter
-public class CreateBookRequest {
+public class UpdateBookRequest {
     @NotBlank(message = "Title is required")
     private String title;
 
@@ -24,9 +24,9 @@ public class CreateBookRequest {
     @NotBlank(message = "Category is required")
     private String category;
 
-    @NotBlank(message = "Category is required")
+    @NotBlank(message = "ISBN Code is required")
     private String isbnCode;
-    
+
     @Pattern(regexp = "\\d{4}-\\d{2}-\\d{2}", message = "Publication date must be in the format YYYY-MM-DD")
     private String publicationDate;
 
