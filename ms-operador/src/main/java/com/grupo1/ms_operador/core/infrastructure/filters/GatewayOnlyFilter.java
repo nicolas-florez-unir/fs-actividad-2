@@ -16,12 +16,25 @@ public class GatewayOnlyFilter implements Filter {
     @Value("${security.gateway.secret}")
     private String gatewaySecret;
 
+    @Value("${security.swagger.endpoint}")
+    private String swaggerEndpoint;
+
+    @Value("${security.swagger.config-endpoint}")
+    private String swaggerConfigEndpoint;
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String secretHeader = httpRequest.getHeader("X-Gateway-Secret");
+
+        // Permitir acceso a Swagger
+        String requestURI = httpRequest.getRequestURI();
+        if (requestURI.startsWith(swaggerEndpoint) || requestURI.startsWith(swaggerConfigEndpoint)) {
+            chain.doFilter(request, response);
+            return;
+        }
 
         // Bloquea la petición si no contiene el header correcto
         if (secretHeader == null || !secretHeader.equals(gatewaySecret)) {

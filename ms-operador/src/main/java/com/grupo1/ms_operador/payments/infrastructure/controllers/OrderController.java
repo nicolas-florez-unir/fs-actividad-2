@@ -100,6 +100,15 @@ public class OrderController {
         }
     }
 
+    @Operation(summary = "Get order by ID", description = "Get an order by its ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Order obtain successfully",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))),
+            @ApiResponse(responseCode = "404", description = "Order not found",
+                    content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(mediaType = "application/json"))
+    })
     @GetMapping("/{id}")
     public ResponseEntity<OrderDto> getOrderById(@PathVariable("id") Long id) {
         var order = this.getOrderByIdUseCase.execute(id);
