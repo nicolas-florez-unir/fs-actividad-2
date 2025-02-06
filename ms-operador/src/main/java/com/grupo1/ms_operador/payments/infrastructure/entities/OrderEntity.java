@@ -2,14 +2,21 @@ package com.grupo1.ms_operador.payments.infrastructure.entities;
 
 import java.util.List;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Data
 @Entity
 @Table(name = "orders")

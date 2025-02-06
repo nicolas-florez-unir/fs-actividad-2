@@ -1,4 +1,4 @@
-package com.grupo1.ms_operador.payments.application.mappers;
+package com.grupo1.ms_operador.payments.infrastructure.mappers;
 
 import org.mapstruct.Mapper;
 

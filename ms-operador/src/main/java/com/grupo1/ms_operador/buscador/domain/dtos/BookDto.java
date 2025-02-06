@@ -1,16 +1,12 @@
 package com.grupo1.ms_operador.buscador.domain.dtos;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@Data
 public class BookDto {
     private Long id;
     private String title;
