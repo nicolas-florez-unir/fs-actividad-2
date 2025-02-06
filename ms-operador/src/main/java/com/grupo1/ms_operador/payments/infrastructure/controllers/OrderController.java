@@ -20,9 +20,18 @@ import com.grupo1.ms_operador.buscador.infrastructure.clients.BuscadorClient;
 import com.grupo1.ms_operador.payments.application.useCases.CreateOrderUseCase;
 import lombok.AllArgsConstructor;
 
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/orders")
+@Tag(name = "Order Controller", description = "Controller for order management and administration")
 public class OrderController {
     private final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
@@ -31,6 +40,16 @@ public class OrderController {
 
     @Autowired
     private CreateOrderUseCase createOrderUseCase;
+
+    @Operation(summary = "Create a new order", description = "Create a new order based on the request provided.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Order created successfully",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = OrderDto.class))),
+            @ApiResponse(responseCode = "400", description = "Invalid input or book not available",
+                    content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(mediaType = "application/json"))
+    })
 
     @PostMapping
     public ResponseEntity<?> createOrder(@RequestBody CreateOrderRequest createOrderRequest) {
