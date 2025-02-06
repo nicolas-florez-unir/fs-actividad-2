@@ -30,6 +30,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @AllArgsConstructor
 @RestController
@@ -56,7 +57,7 @@ public class OrderController {
                     content = @Content(mediaType = "application/json"))
     })
     @PostMapping
-    public ResponseEntity<OrderDto> createOrder(@RequestBody CreateOrderRequest createOrderRequest) {
+    public ResponseEntity<OrderDto> createOrder(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
         try {
             var booksOrdersRequest = createOrderRequest.getBookOrderRequest();
 
