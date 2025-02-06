@@ -1,4 +1,4 @@
-package com.grupo1.ms_operador.payments.infrastructure.requests;
+package com.grupo1.ms_operador.orders.infrastructure.requests;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;

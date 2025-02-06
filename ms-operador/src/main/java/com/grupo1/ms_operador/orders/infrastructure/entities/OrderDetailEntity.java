@@ -1,4 +1,4 @@
-package com.grupo1.ms_operador.payments.infrastructure.entities;
+package com.grupo1.ms_operador.orders.infrastructure.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

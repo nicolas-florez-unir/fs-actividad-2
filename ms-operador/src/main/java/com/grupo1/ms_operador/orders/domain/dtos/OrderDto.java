@@ -1,4 +1,4 @@
-package com.grupo1.ms_operador.payments.domain.dtos;
+package com.grupo1.ms_operador.orders.domain.dtos;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
