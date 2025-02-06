@@ -1,4 +1,4 @@
-package com.grupo1.ms_operador.payments.infrastructure.repositories;
+package com.grupo1.ms_operador.orders.infrastructure.repositories;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.grupo1.ms_operador.payments.domain.dtos.OrderDto;
-import com.grupo1.ms_operador.payments.domain.repositories.OrderRepository;
-import com.grupo1.ms_operador.payments.infrastructure.entities.OrderDetailEntity;
-import com.grupo1.ms_operador.payments.infrastructure.entities.OrderEntity;
-import com.grupo1.ms_operador.payments.infrastructure.mappers.OrderMapper;
+import com.grupo1.ms_operador.orders.domain.dtos.OrderDto;
+import com.grupo1.ms_operador.orders.domain.repositories.OrderRepository;
+import com.grupo1.ms_operador.orders.infrastructure.entities.OrderDetailEntity;
+import com.grupo1.ms_operador.orders.infrastructure.entities.OrderEntity;
+import com.grupo1.ms_operador.orders.infrastructure.mappers.OrderMapper;
 
 import lombok.AllArgsConstructor;
 

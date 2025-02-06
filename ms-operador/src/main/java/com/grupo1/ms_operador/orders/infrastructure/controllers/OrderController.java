@@ -1,16 +1,10 @@
-package com.grupo1.ms_operador.payments.infrastructure.controllers;
+package com.grupo1.ms_operador.orders.infrastructure.controllers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.grupo1.ms_operador.payments.domain.dtos.OrderDetailDto;
-import com.grupo1.ms_operador.payments.domain.dtos.OrderDto;
-import com.grupo1.ms_operador.payments.domain.exceptions.BookNotAvailableException;
-import com.grupo1.ms_operador.payments.infrastructure.requests.CreateOrderRequest;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.grupo1.ms_operador.buscador.domain.dtos.BookDto;
 import com.grupo1.ms_operador.buscador.infrastructure.clients.BuscadorClient;
-import com.grupo1.ms_operador.payments.application.useCases.CreateOrderUseCase;
-import com.grupo1.ms_operador.payments.application.useCases.GetOrderByIdUseCase;
+import com.grupo1.ms_operador.orders.application.useCases.CreateOrderUseCase;
+import com.grupo1.ms_operador.orders.application.useCases.GetOrderByIdUseCase;
+import com.grupo1.ms_operador.orders.domain.dtos.OrderDetailDto;
+import com.grupo1.ms_operador.orders.domain.dtos.OrderDto;
+import com.grupo1.ms_operador.orders.domain.exceptions.BookNotAvailableException;
+import com.grupo1.ms_operador.orders.infrastructure.requests.CreateOrderRequest;
 
 import lombok.AllArgsConstructor;
 
@@ -32,6 +30,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @AllArgsConstructor
 @RestController
@@ -58,7 +57,7 @@ public class OrderController {
                     content = @Content(mediaType = "application/json"))
     })
     @PostMapping
-    public ResponseEntity<OrderDto> createOrder(@RequestBody CreateOrderRequest createOrderRequest) {
+    public ResponseEntity<OrderDto> createOrder(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
         try {
             var booksOrdersRequest = createOrderRequest.getBookOrderRequest();
 
