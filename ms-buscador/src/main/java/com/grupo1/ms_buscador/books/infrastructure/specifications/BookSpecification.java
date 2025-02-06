@@ -46,6 +46,11 @@ public class BookSpecification {
                 predicates.add(criteriaBuilder.equal(root.get("visible"), filters.getVisible()));
             }
 
+            if(filters.getIsbnCode() != null && !filters.getIsbnCode().isEmpty()) {
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("isbnCode")),
+                        "%" + filters.getIsbnCode().toLowerCase() + "%"));
+            }
+
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }

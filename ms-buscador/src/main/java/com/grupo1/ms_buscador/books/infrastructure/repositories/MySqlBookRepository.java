@@ -126,4 +126,35 @@ public class MySqlBookRepository extends BookRepository {
         return booksDtos;
     }
 
+    @Override
+    public BookDto update(BookDto bookDto) {
+        var existingBook =  this.jpaBookRepository.findById(bookDto.getId()).get();
+        
+        existingBook.setTitle(bookDto.getTitle());
+        existingBook.setAuthor(bookDto.getAuthor());
+        existingBook.setDescription(bookDto.getDescription());
+        existingBook.setVisible(bookDto.getVisible());
+        existingBook.setCategory(bookDto.getCategory());
+        existingBook.setIsbnCode(bookDto.getIsbnCode());
+        existingBook.setPublicationDate(bookDto.getPublicationDate());
+        existingBook.setRating(bookDto.getRating());
+        existingBook.setUnitsAvaible(bookDto.getUnitsAvaible());
+        existingBook.setPrice(bookDto.getPrice());
+
+        BookEntity updatedBook = this.jpaBookRepository.save(existingBook);
+
+        return new BookDto(
+                updatedBook.getId(),
+                updatedBook.getTitle(),
+                updatedBook.getAuthor(),
+                updatedBook.getDescription(),
+                updatedBook.isVisible(),
+                updatedBook.getCategory(),
+                updatedBook.getIsbnCode(),
+                updatedBook.getPublicationDate(),
+                updatedBook.getRating(),
+                updatedBook.getUnitsAvaible(),
+                updatedBook.getPrice());
+    }
+
 }
