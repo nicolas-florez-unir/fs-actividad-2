@@ -1,14 +1,12 @@
 package com.grupo1.ms_operador.payments.domain.dtos;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class OrderDetailDto {
     private Long id;
     private Long bookId;
