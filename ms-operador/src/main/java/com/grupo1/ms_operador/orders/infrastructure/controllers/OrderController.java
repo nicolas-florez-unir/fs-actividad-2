@@ -57,7 +57,7 @@ public class OrderController {
                     content = @Content(mediaType = "application/json"))
     })
     @PostMapping
-    public ResponseEntity<OrderDto> createOrder(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
+    public ResponseEntity<?> createOrder(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
         try {
             var booksOrdersRequest = createOrderRequest.getBookOrderRequest();
 
@@ -92,7 +92,7 @@ public class OrderController {
 
             return ResponseEntity.created(null).body(this.createOrderUseCase.execute(orderDto));
         } catch (BookNotAvailableException e) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body(e.getMessage().toString());
         } catch (Exception e) {
             this.logger.error("Error al procesar la compra", e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
