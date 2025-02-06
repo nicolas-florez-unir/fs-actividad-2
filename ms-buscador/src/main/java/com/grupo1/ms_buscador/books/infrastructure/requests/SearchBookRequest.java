@@ -10,6 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class SearchBookRequest {
+    private String ids;
     private String title;
     private String author;
     private String description;
